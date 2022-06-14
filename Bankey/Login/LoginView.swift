@@ -10,6 +10,7 @@ import UIKit
 
 class LoginView: UIView{
     
+    let stackViewText = UIStackView()
     let stackView = UIStackView()
     let userNameTextField = UITextField()
     let passwordTextField = UITextField()
@@ -33,6 +34,10 @@ extension LoginView{
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .secondarySystemBackground
         
+        stackViewText.translatesAutoresizingMaskIntoConstraints = false
+        stackViewText.axis = .vertical
+        stackViewText.spacing = 8
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 8
@@ -54,10 +59,17 @@ extension LoginView{
     }
     
     func layout(){
+        
         stackView.addArrangedSubview(userNameTextField)
         stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(passwordTextField)
+        
+        addSubview(stackViewText)
         addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackViewText.bottomAnchor.constraint(equalTo: stackView.topAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalToSystemSpacingBelow: topAnchor, multiplier: 1),
@@ -78,11 +90,7 @@ extension LoginView: UITextFieldDelegate{
         return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != ""{
-            return true
-        }else{
-            return false
-        }
+        return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
     }
